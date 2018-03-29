@@ -8,4 +8,27 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+   <!-- <style name="ThemeBirthday" parent="Theme.AppCompat.Light">
+        <item name="android:background">@null</item>
+        &lt;!&ndash; Support library compatibility &ndash;&gt;
+        <item name="background">@null</item>
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>-->
+
+    <style name="AppTheme.ThemeBirthday">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowSoftInputMode">stateHidden</item>
+    </style>
+
+    <style name="BirthdayText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

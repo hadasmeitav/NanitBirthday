@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
-import java.text.SimpleDateFormat;
+import com.nanit.birthday.utils.Utils;
+
 import java.util.Calendar;
 
 /**
@@ -40,6 +41,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, day);
 
-        datePickerListener.onDateSelected(new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime()));
+        datePickerListener.onDateSelected(Utils.serializeDate(cal.getTime()));
     }
 }

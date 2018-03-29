@@ -1,7 +1,9 @@
-package com.nanit.birthday;
+package com.nanit.birthday.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.nanit.birthday.R;
 
 /**
  * Created by hadas on 3/28/18.

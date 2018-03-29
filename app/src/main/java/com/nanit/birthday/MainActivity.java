@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
@@ -20,6 +21,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nanit.birthday.utils.BitmapUtils;
+import com.nanit.birthday.utils.Preferences;
+
 public class MainActivity extends AppCompatActivity implements DatePickerListener {
 
     private TextInputEditText nameView;
@@ -34,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerListene
     static final int REQUEST_SELECT_FILE = 102;
     static final int REQUEST_CAMERA_READ_STORAGE_PERMISSION = 200;
 
+    public static final String BITMAP_SOURCE = "com.nanit.birthday.BITMAP_SOURCE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerListene
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
 
         preferences.setValue(Preferences.Key.Name, nameView.getText().toString());
         preferences.setValue(Preferences.Key.Date, dateView.getText().toString());
@@ -143,6 +149,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerListene
                 enableShowBirthdayButton();
             }
         });
+
+        findViewById(R.id.show_birthday).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openBirthdayIntent = new Intent(MainActivity.this, BirthdayActivity.class);
+                openBirthdayIntent.putExtra(Preferences.Key.Name.name(), nameView.getText().toString());
+                openBirthdayIntent.putExtra(Preferences.Key.Date.name(), dateView.getText().toString());
+                if (photo.getDrawable() != null) {
+                    Bitmap scaledBitmap = BitmapUtils.scaleDownBitmap(((BitmapDrawable)
+                            photo.getDrawable()).getBitmap(), 100, MainActivity.this);
+                    openBirthdayIntent.putExtra(BITMAP_SOURCE, scaledBitmap);
+                }
+                startActivity(openBirthdayIntent);
+            }
+        });
     }
 
     private void enableShowBirthdayButton() {
@@ -175,4 +196,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerListene
         });
         builder.show();
     }
+
+
 }
